@@ -4,8 +4,8 @@
 
 %create a new folder
 mkdir test1
-folderPath = 'C:\Users\wadsw053\Documents\MATLAB\Scan7';  % Specify the folder path
-filePattern = fullfile(folderPath, '*.dm3');  % File pattern to match .txt files
+folderPath = 'C:\Users\wadsw053\Documents\MATLAB\Scan7';  % Specify the folder path for folder that holds .dm3 files
+filePattern = fullfile(folderPath, '*.dm3');  % File pattern to match .dm3 files
 
 fileList = dir(filePattern);  % Get a list of all .dm3 files in the folder
 
@@ -19,11 +19,12 @@ for i = 1:numel(fileList)
     %found 
     dm3data = DM3Import(dm3list);
     %transposes dm3 image data, which is the .image_data found after
-    %importing the dm3 file
+    %importing the dm3 data structure that holds the intensity values
     dm3image = transpose(dm3data.image_data);
     %converts dm3 data to unit16 
     I = dm3_to_uint16(dm3image, 0.0002);
     %after this step, can preform different image anylsis techniques
+    
     %saves the image data as a tiff file
     savename = [num2str(i) '.tif'];
     %create file for each scan
