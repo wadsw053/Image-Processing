@@ -3,9 +3,9 @@
 %Author:Colin Wadsworth
 
 %create a new folder
-mkdir test1
-folderPath = 'C:\Users\wadsw053\Documents\MATLAB\Scan7';  % Specify the folder path for folder that holds .dm3 files
-filePattern = fullfile(folderPath, '*.dm3');  % File pattern to match .dm3 files
+mkdir example
+folderPath = 'C:\Users\wadsw053\Documents\MATLAB\SUM DF 2.97';  % Specify the folder path for files that are to be converted
+filePattern = fullfile(folderPath, '*.dm3');  % File pattern to match .txt files
 
 fileList = dir(filePattern);  % Get a list of all .dm3 files in the folder
 
@@ -19,21 +19,20 @@ for i = 1:numel(fileList)
     %found 
     dm3data = DM3Import(dm3list);
     %transposes dm3 image data, which is the .image_data found after
-    %importing the dm3 data structure that holds the intensity values
+    %importing the dm3 file
     dm3image = transpose(dm3data.image_data);
     %converts dm3 data to unit16 
     I = dm3_to_uint16(dm3image, 0.0002);
     %after this step, can preform different image anylsis techniques
-    
-    %saves the image data as a tiff file
-    savename = [num2str(i) '.tif'];
+    %saves the image data as a tif file
+    savename = [filename '.tif'];
     %create file for each scan
     imwrite(I, savename)
 end
  
 %move to desired folder
 sourceFolder = 'C:\Users\wadsw053\Documents\MATLAB';  % Specify the source folder path
-destinationFolder = 'C:\Users\wadsw053\Documents\MATLAB\test1';  % Specify the destination folder path
+destinationFolder = 'C:\Users\wadsw053\Documents\MATLAB\SUM_DF_2.97_tif';  % Specify the destination folder path
 fileExtension = '*.tif';  % Specify the file extension of files to be moved
 
 filePattern = fullfile(sourceFolder, fileExtension);  % File pattern to match files with the given extension
